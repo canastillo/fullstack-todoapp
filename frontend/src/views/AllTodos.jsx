@@ -2,9 +2,10 @@ import { useState } from "react"
 
 import TodosList from "../components/todos/TodosList"
 import TodoForm from "../components/todos/TodoForm"
+import Container from "../components/layout"
 
 const AllTodos = () => {
-    
+
     const [todos, setTodos] = useState([
         {
             id: "1",
@@ -13,7 +14,7 @@ const AllTodos = () => {
         },
         {
             id: "2",
-            task: "Code fullstack SPA",
+            task: "Code fullstack SPA askdjf fglsjkfdgs fglskjfg fglsjkfdgsfglsjkfdgsfglsjkfdgs fglsjkfdgsfglsjkfdgsfglsjkfdgs fglsjkfdgs fglsjkfdgs ",
             done: true
         },
         {
@@ -29,15 +30,15 @@ const AllTodos = () => {
         aux.splice(position, 1)
         setTodos(aux)
     }
-   
+
     return(
         <>
             <main>
-            <div>
+            <Container>
                 <h1>To-Do List</h1>
                 <TodosList todos={todos} handleDelete={handleDelete}/>
                 <TodoForm todos={todos} setTodos={setTodos} />
-            </div>
+            </Container>
             </main>
         </>
     )
