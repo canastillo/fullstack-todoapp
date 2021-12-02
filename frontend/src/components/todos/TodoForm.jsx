@@ -6,7 +6,10 @@ const TodoForm = ({todos, setTodos}) => {
     const handleSubmit = (e) => {
         e.preventDefault()
 
-        setTodos([...todos, { id: todos.length + 1, task: newTodo, done: false }])
+        if (newTodo !== "")
+            setTodos([...todos, { id: todos.length + 1, task: newTodo, done: false }])
+        
+        setNewTodo("")
     }
 
     const handleOnChange = (e) => {
@@ -19,7 +22,8 @@ const TodoForm = ({todos, setTodos}) => {
                 type="text"
                 placeholder="New task"
                 value={newTodo}
-                onChange={e => handleOnChange(e)} />
+                onChange={e => handleOnChange(e)} 
+                autoFocus />
             <input type="submit" value="Add"/>
         </form>
     )

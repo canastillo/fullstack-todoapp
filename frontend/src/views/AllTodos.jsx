@@ -23,13 +23,21 @@ const AllTodos = () => {
         }
     ])
 
+    const handleDelete = (id) => {
+        const position = todos.findIndex(todo => todo.id === id)
+        const aux = todos
+        aux.splice(position, 1)
+        setTodos(aux)
+    }
    
     return(
         <>
-            <h1>To-Do List</h1>
             <main>
-                <TodosList todos={todos}/>
-                <TodoForm todos={todos} setTodos={setTodos}/>
+            <div>
+                <h1>To-Do List</h1>
+                <TodosList todos={todos} handleDelete={handleDelete}/>
+                <TodoForm todos={todos} setTodos={setTodos} />
+            </div>
             </main>
         </>
     )
