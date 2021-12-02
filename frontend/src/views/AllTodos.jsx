@@ -25,7 +25,7 @@ const AllTodos = () => {
 
     const handleDelete = (id) => {
         const position = todos.findIndex(todo => todo.id === id)
-        const aux = todos
+        const aux = [...todos]
         aux.splice(position, 1)
         setTodos(aux)
     }
