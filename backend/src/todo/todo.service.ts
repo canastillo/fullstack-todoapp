@@ -1,45 +1,45 @@
-import { Injectable } from '@nestjs/common';
-import { CreateTodoDto, EditTodoDto } from './dtos';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 
-const todos = [
-    {
-        id: 1,
-        task: "Take Ensolvers test",
-        done: true
-    },
-    {
-        id: 2,
-        task: "Code fullstack SPA",
-        done: true
-    },
-    {
-        id: 3,
-        task: "Get hired",
-        done: false
-    }
-]
+import { CreateTodoDto, EditTodoDto } from './dtos';
+import { Todo } from './entities';
 
 @Injectable()
 export class TodoService {
 
-    getMany() {
-        return todos
+    constructor(
+        @InjectRepository(Todo)
+        private readonly todoRepository: Repository<Todo> 
+    ) {}
+
+    async getMany(): Promise<Todo[]> {
+        return await this.todoRepository.find()
     }
 
-    getOne(id: number) {
-        const todo = todos.find(todo => todo.id === id)
+    async getOne(id: number) {
+        const todo = await this.todoRepository.findOne(id)
+        if (!todo) throw new NotFoundException()
+
         return todo
     }
 
     createOne(dto: CreateTodoDto) {
-        return { ok: "createOne"}
+        const todo = this.todoRepository.create(dto)
+        return this.todoRepository.save(todo)
     }
 
-    editOne(id: number, dto: EditTodoDto) {
-        return { ok: "editOne" }
+    async editOne(id: number, dto: EditTodoDto) {
+        let todo = await this.todoRepository.findOne(id)
+        if (!todo) throw new NotFoundException()
+        
+        return this.todoRepository.save({
+            ...todo,
+            ...dto
+        })
     }
 
-    deleteOne(id: number) {
-        return { ok: "deleteOne" }
+    async deleteOne(id: number) {
+        return await this.todoRepository.delete(id)
     }
 }

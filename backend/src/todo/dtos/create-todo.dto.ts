@@ -5,5 +5,5 @@ export class CreateTodoDto {
     task: string;
 
     @IsBoolean()
-    done: boolean;
+    done: boolean = false;
 }

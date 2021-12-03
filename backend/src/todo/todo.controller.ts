@@ -8,19 +8,22 @@ export class TodoController {
     constructor(private readonly todoService: TodoService) {}
 
     @Get()
-    getMany() {
+    async getMany() {
+        const data = await this.todoService.getMany()
+
         return {
             status: 'success',
-            data: this.todoService.getMany()
+            data
         };
     }
 
     @Get(':id')
-    getOne(@Param('id', ParseIntPipe) id: number) {
-        
+    async getOne(@Param('id', ParseIntPipe) id: number) {
+        const data = await this.todoService.getOne(id)
+
         return {
             status: 'success',
-            data: this.todoService.getOne(id)
+            data
         }
     }
 
@@ -28,7 +31,6 @@ export class TodoController {
     createOne(
         @Body() dto: CreateTodoDto
     ) {
-        // return dto;
         return this.todoService.createOne(dto)
     }
 
@@ -37,7 +39,6 @@ export class TodoController {
         @Param('id') id: number,
         @Body() dto: EditTodoDto
     ) {
-        // return dto
         return this.todoService.editOne(id, dto)
     }
 
@@ -47,6 +48,4 @@ export class TodoController {
     ) {
         return this.todoService.deleteOne(id)
     }
-
-
 }
