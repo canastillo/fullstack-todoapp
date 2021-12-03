@@ -1,4 +1,5 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
+import axios from "axios"
 
 import TodosList from "../components/todos/TodosList"
 import TodoForm from "../components/todos/TodoForm"
@@ -6,23 +7,20 @@ import Container from "../components/layout"
 
 const AllTodos = () => {
 
-    const [todos, setTodos] = useState([
-        {
-            id: "1",
-            task: "Take Ensolvers test",
-            done: true
-        },
-        {
-            id: "2",
-            task: "Code fullstack SPA askdjf fglsjkfdgs fglskjfg fglsjkfdgsfglsjkfdgsfglsjkfdgs fglsjkfdgsfglsjkfdgsfglsjkfdgs fglsjkfdgs fglsjkfdgs ",
-            done: true
-        },
-        {
-            id: "3",
-            task: "Get hired",
-            done: false
+    const [todos, setTodos] = useState([])
+
+    useEffect(() => {
+        const fetchTodos = async () => {
+            try {
+                const response = await axios.get(`${process.env.REACT_APP_API}/todos`)
+                setTodos(response.data.data)
+            } catch (error) {
+                console.error(error)
+            }
         }
-    ])
+
+        fetchTodos()
+    }, [])
 
     const handleDelete = (id) => {
         const position = todos.findIndex(todo => todo.id === id)
