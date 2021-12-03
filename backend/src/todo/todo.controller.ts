@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put } from '@nestjs/common';
 import { CreateTodoDto } from './dtos';
 
 const todos = [
@@ -31,8 +31,8 @@ export class TodoController {
     }
 
     @Get(':id')
-    getOne(@Param('id') id: number) {
-        const todo = todos.find(todo => todo.id == id)
+    getOne(@Param('id', ParseIntPipe) id: number) {
+        const todo = todos.find(todo => todo.id === id)
         
         return {
             status: 'success',
