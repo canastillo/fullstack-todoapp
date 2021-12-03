@@ -30,9 +30,13 @@ export class TodoController {
     }
 
     @Get(':id')
-    getOne(@Param() id: string) {
-        // todos.findIndex(todo.id === id)
-        return id
+    getOne(@Param('id') id: number) {
+        const todo = todos.find(todo => todo.id == id)
+        
+        return {
+            status: 'success',
+            data: todo
+        }
     }
 
     @Post()
