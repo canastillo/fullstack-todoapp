@@ -14,8 +14,8 @@ const AllTodos = () => {
             try {
                 const response = await axios.get(`${process.env.REACT_APP_API}/todos`)
                 setTodos(response.data.data)
-            } catch (error) {
-                console.error(error)
+            } catch (err) {
+                console.error(err)
             }
         }
 

@@ -1,4 +1,5 @@
-import { useState } from "react"
+import axios from "axios"
+import { useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router"
 import styled from "styled-components"
 
@@ -14,15 +15,23 @@ const TaskInput = styled.input`
 const SingleTodo = () => {
     const {id} = useParams()
     const navigate = useNavigate()
+    const [todo, setTodo] = useState({})
+    const [newTask, setNewTask] = useState("")
 
-    // TODO: Request task
-    const data = {
-        id: id,
-        task: "Create awesome web app",
-        done: true
-    }
+    useEffect(() => {
+        const fetchSingleTodo = async () => {
+            try {
+                const response = await axios.get(`${process.env.REACT_APP_API}/todos/${id}`)
+                console.log(response)
+                setTodo(response.data.data)
+                setNewTask(response.data.data.task)
+            } catch (err) {
+                console.error(err)
+            }
+        }
 
-    const [newTask, setNewTask] = useState(data.task)
+        fetchSingleTodo()
+    }, [])
 
     const handleSave = (e) => {
         e.preventDefault()
@@ -33,14 +42,14 @@ const SingleTodo = () => {
         }
         else {
             alert("You cannot save an empty task")
-            setNewTask(data.task)
+            setNewTask(todo.task)
         }
     }
 
     const handleCancel = (e) => {
         e.preventDefault()
 
-        if (newTask !== data.task) {
+        if (newTask !== todo.task) {
             const choice = window.confirm("Discard changes?")
             if (choice) navigate(-1)
         } else 
@@ -50,7 +59,7 @@ const SingleTodo = () => {
     return (
         <main>
             <Container>
-                <h1>Editing task "{data.task}"</h1>
+                <h1>Editing task "{todo.task}"</h1>
                 <form>
                     <TaskInput 
                         type="text"
