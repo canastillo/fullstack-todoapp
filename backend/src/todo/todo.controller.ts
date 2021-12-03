@@ -1,5 +1,5 @@
 import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put } from '@nestjs/common';
-import { CreateTodoDto } from './dtos';
+import { CreateTodoDto, EditTodoDto } from './dtos';
 
 const todos = [
     {
@@ -48,8 +48,11 @@ export class TodoController {
     }
 
     @Put(':id')
-    updateOne() {
-
+    updateOne(
+        @Param('id') id: number,
+        @Body() dto: EditTodoDto
+    ) {
+        return dto
     }
 
     @Delete(':id')
