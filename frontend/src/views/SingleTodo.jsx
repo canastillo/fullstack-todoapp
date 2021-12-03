@@ -13,16 +13,17 @@ const TaskInput = styled.input`
 `
 
 const SingleTodo = () => {
-    const {id} = useParams()
+    const { id } = useParams()
     const navigate = useNavigate()
     const [todo, setTodo] = useState({})
     const [newTask, setNewTask] = useState("")
 
+    const todoURL = `${process.env.REACT_APP_API}/todos/${id}`
+
     useEffect(() => {
         const fetchSingleTodo = async () => {
             try {
-                const response = await axios.get(`${process.env.REACT_APP_API}/todos/${id}`)
-                console.log(response)
+                const response = await axios.get(todoURL)
                 setTodo(response.data.data)
                 setNewTask(response.data.data.task)
             } catch (err) {
@@ -33,26 +34,33 @@ const SingleTodo = () => {
         fetchSingleTodo()
     }, [])
 
-    const handleSave = (e) => {
+    const handleSave = async (e) => {
         e.preventDefault()
 
-        if (newTask !== "") {
-            // TODO: Save task
-            navigate(-1)
-        }
-        else {
+        if (newTask === "") {
             alert("You cannot save an empty task")
             setNewTask(todo.task)
         }
+        else if (newTask === todo.task)
+            navigate(-1)
+        else {
+            const response = await axios.put(todoURL, {task: newTask})
+
+            if (response.status === 200)
+                navigate(-1)
+        }
+        
     }
 
     const handleCancel = (e) => {
         e.preventDefault()
 
-        if (newTask !== todo.task) {
+        if (newTask !== todo.task && newTask !== "") {
             const choice = window.confirm("Discard changes?")
-            if (choice) navigate(-1)
-        } else 
+            
+            if (choice)
+                navigate(-1)
+        } else
             navigate(-1)
     }
 
