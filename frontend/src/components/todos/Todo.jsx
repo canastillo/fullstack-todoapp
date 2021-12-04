@@ -18,14 +18,20 @@ const TodoText = styled.p`
     margin-right: 5px;
 `
 
+const EditButton = styled(Link)`
+    margin-right: 9px;
+    margin-top: auto;
+    margin-bottom: auto;
+`
+
 const Todo = ({data, handleDelete}) => {
     return (
         <Element>
             <input type="checkbox" checked={data.done}/>
             <TodoText>{data.task}</TodoText>
-            <Link to={`/todos/${data.id}`}  style={{marginRight: "5px", marginTop: "auto", marginBottom: "auto"}} >
+            <EditButton to={`/todos/${data.id}`} >
                 Edit
-            </Link>
+            </EditButton>
             <button onClick={ () => handleDelete(data.id) } style={{maxHeight: "25px", marginTop: "auto", marginBottom: "auto"}}>Delete</button>
         </Element>
     )
