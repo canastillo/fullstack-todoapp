@@ -22,11 +22,16 @@ const AllTodos = () => {
         fetchTodos()
     }, [])
 
-    const handleDelete = (id) => {
-        const position = todos.findIndex(todo => todo.id === id)
-        const aux = [...todos]
-        aux.splice(position, 1)
-        setTodos(aux)
+    const handleDelete = async (id) => {
+        const response = await axios.delete(`${process.env.REACT_APP_API}/todos/${id}`)
+
+        if (response.status === 200) {
+            const position = todos.findIndex(todo => todo.id === id)
+            const aux = [...todos]
+            
+            aux.splice(position, 1)
+            setTodos(aux)
+        }
     }
 
     return(
