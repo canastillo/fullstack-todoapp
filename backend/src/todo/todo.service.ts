@@ -17,6 +17,13 @@ export class TodoService {
         return await this.todoRepository.find()
     }
 
+    async getManyByFolder(folder: number) {
+            console.log(typeof(folder));
+
+        const data = await this.todoRepository.find({ folder })
+        return data
+    }
+
     async getOne(id: number) {
         const todo = await this.todoRepository.findOne(id)
         if (!todo) throw new NotFoundException()

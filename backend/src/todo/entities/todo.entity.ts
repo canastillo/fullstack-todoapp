@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Folder } from "src/folder/entities";
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity('todos')
 export class Todo {
@@ -10,4 +11,7 @@ export class Todo {
 
     @Column({ nullable: false })
     done: boolean;
+
+    @ManyToOne(() => Folder, folder => folder.id)
+    folder: number;
 }

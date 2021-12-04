@@ -1,4 +1,5 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put, Query } from '@nestjs/common';
+import { ApiQuery } from '@nestjs/swagger';
 import { CreateTodoDto, EditTodoDto } from './dtos';
 import { TodoService } from './todo.service';
 
@@ -6,25 +7,25 @@ import { TodoService } from './todo.service';
 export class TodoController {
 
     constructor(private readonly todoService: TodoService) {}
-
+    
     @Get()
-    async getMany() {
-        const data = await this.todoService.getMany()
+    async getMany(@Query('folder') folderId?: number) {
+        let data;
+        
+        if (folderId) 
+            data = await this.todoService.getManyByFolder(folderId)
+        else
+            data = await this.todoService.getMany()
 
-        return {
-            status: 'success',
-            data
-        };
+
+        return  data
     }
+
 
     @Get(':id')
     async getOne(@Param('id', ParseIntPipe) id: number) {
         const data = await this.todoService.getOne(id)
-
-        return {
-            status: 'success',
-            data
-        }
+        return data
     }
 
     @Post()
