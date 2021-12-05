@@ -24,8 +24,8 @@ const SingleTodo = () => {
         const fetchSingleTodo = async () => {
             try {
                 const response = await axios.get(todoURL)
-                setTodo(response.data.data)
-                setNewTask(response.data.data.task)
+                setTodo(response.data)
+                setNewTask(response.data.task)
             } catch (err) {
                 console.error(err)
             }

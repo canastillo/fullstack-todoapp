@@ -13,7 +13,7 @@ const AllTodos = () => {
         const fetchTodos = async () => {
             try {
                 const response = await axios.get(`${process.env.REACT_APP_API}/todos`)
-                setTodos(response.data.data)
+                setTodos(response.data)
             } catch (err) {
                 console.error(err)
             }
@@ -40,7 +40,6 @@ const AllTodos = () => {
             <Container>
                 <h1>To-Do List</h1>
                 <TodosList todos={todos} handleDelete={handleDelete}/>
-                <TodoForm todos={todos} setTodos={setTodos} />
             </Container>
             </main>
         </>

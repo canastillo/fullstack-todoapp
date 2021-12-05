@@ -1,6 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-
-import { AllTodos, SingleTodo } from './views';
+import { AllFolders, AllTodos, FolderTodos, SingleTodo } from './views';
 
 function App() {
   return (
@@ -9,6 +8,8 @@ function App() {
         <Routes>
           <Route exac path="/todos" element={<AllTodos/>} />
           <Route exac path="/todos/:id" element={<SingleTodo/>} />
+          <Route exac path="/folders" element={<AllFolders/>} />
+          <Route exac path="/folders/:id" element={<FolderTodos/>} />
         </Routes>
       </Router>
     </>

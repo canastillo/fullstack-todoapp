@@ -1,34 +1,34 @@
 import { useState } from "react"
 import axios from "axios"
 
-const TodoForm = ({todos, setTodos, folderId}) => {
-    const [newTodo, setNewTodo] = useState("")
-console.log(typeof(folderId))
+const FolderForm = ({folders, setFolders}) => {
+    const [newFolder, setNewFolder] = useState("")
+
     const handleSubmit = async (e) => {
         e.preventDefault()
 
-        if (newTodo !== "") {
-            const response = await axios.post(`${process.env.REACT_APP_API}/todos`, {task: newTodo, folderId: parseInt(folderId) })
+        if (newFolder !== "") {
+            const response = await axios.post(`${process.env.REACT_APP_API}/folders`, {name: newFolder})
             console.log(response)
             
             if (response.status === 201) {
-                setTodos([...todos, { id: todos.length + 1, task: newTodo, done: false }])
+                setFolders([...folders, { id: folders.length + 1, name: newFolder }])
             }
         }
         
-        setNewTodo("")
+        setNewFolder("")
     }
 
     const handleOnChange = (e) => {
-        setNewTodo(e.target.value)
+        setNewFolder(e.target.value)
     }
 
     return(
         <form onSubmit={ e => handleSubmit(e) }>
             <input 
                 type="text"
-                placeholder="New task"
-                value={newTodo}
+                placeholder="New folder"
+                value={newFolder}
                 onChange={e => handleOnChange(e)} 
                 autoFocus />
             <input type="submit" value="Add"/>
@@ -36,4 +36,4 @@ console.log(typeof(folderId))
     )
 }
 
-export default TodoForm
+export default FolderForm
