@@ -12,6 +12,6 @@ export class Todo {
     @Column({ nullable: false })
     done: boolean;
 
-    @ManyToOne(() => Folder, folder => folder.id)
+    @ManyToOne(() => Folder, folder => folder.id, { onDelete: 'CASCADE' })
     folder: number;
 }
