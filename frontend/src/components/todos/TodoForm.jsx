@@ -3,12 +3,12 @@ import axios from "axios"
 
 const TodoForm = ({todos, setTodos, folderId}) => {
     const [newTodo, setNewTodo] = useState("")
-console.log(typeof(folderId))
+
     const handleSubmit = async (e) => {
         e.preventDefault()
 
         if (newTodo !== "") {
-            const response = await axios.post(`${process.env.REACT_APP_API}/todos`, {task: newTodo, folderId: parseInt(folderId) })
+            const response = await axios.post(`${process.env.REACT_APP_API}/todos`, {task: newTodo, folder: parseInt(folderId) })
             console.log(response)
             
             if (response.status === 201) {
