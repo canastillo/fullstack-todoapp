@@ -1,11 +1,5 @@
-import styled from "styled-components"
 import Todo from "./Todo"
-
-const List = styled.ul`
-    width: 100%;
-    max-width: 500px;
-    padding-left: 0;
-` 
+import { List } from "../layout"
 
 const TodosList = ({todos, handleDelete}) => {
     

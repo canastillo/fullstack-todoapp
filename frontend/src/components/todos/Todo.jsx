@@ -1,16 +1,8 @@
-import axios from 'axios'
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
 import styled from 'styled-components'
+import axios from 'axios'
 
-const Element = styled.li`
-    width: 100%;
-    padding-top: 3px;
-    padding-bottom: 3px;
-    list-style: none;
-    display: flex;
-    justify-content: space-between;
-`
+import { ListElement, RedirectButton } from '../layout'
 
 const TodoText = styled.p`
     flex-grow: 2;
@@ -19,13 +11,6 @@ const TodoText = styled.p`
     margin-left: 5px;
     margin-right: 5px;
     text-decoration-line: ${ ({isDone}) => isDone ? 'line-through' : 'none'};
-
-`
-
-const EditButton = styled(Link)`
-    margin-right: 9px;
-    margin-top: auto;
-    margin-bottom: auto;
 `
 
 const Todo = ({data, handleDelete}) => {
@@ -39,14 +24,14 @@ const Todo = ({data, handleDelete}) => {
     }
 
     return (
-        <Element>
+        <ListElement>
             <input type="checkbox" checked={isDone} onChange={ () => toggleStatus()}/>
             <TodoText isDone={isDone}>{data.task}</TodoText>
-            <EditButton to={`/todos/${data.id}`} >
+            <RedirectButton to={`/todos/${data.id}`} >
                 Edit
-            </EditButton>
+            </RedirectButton>
             <button onClick={ () => handleDelete(data.id) } style={{maxHeight: "25px", marginTop: "auto", marginBottom: "auto"}}>Delete</button>
-        </Element>
+        </ListElement>
     )
 }
 

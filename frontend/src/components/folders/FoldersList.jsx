@@ -1,11 +1,5 @@
-import styled from "styled-components"
 import Folder from "./Folder"
-
-const List = styled.ul`
-    width: 100%;
-    max-width: 500px;
-    padding-left: 0;
-` 
+import { List } from "../layout" 
 
 const FoldersList = ({folders, handleDelete}) => {
     
@@ -13,7 +7,7 @@ const FoldersList = ({folders, handleDelete}) => {
         <div>
             <List>
                 { folders.map(folder => (
-                    <Folder data={folder} key={folder.task} handleDelete={handleDelete}/> 
+                    <Folder data={folder} key={folder.name} handleDelete={handleDelete}/> 
                 ))}
             </List>
         </div>

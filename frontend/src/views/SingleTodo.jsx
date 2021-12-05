@@ -3,8 +3,6 @@ import { useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router"
 import styled from "styled-components"
 
-import Container from "../components/layout"
-
 const TaskInput = styled.input`
     display: block;
     width: 100%;
@@ -32,7 +30,7 @@ const SingleTodo = () => {
         }
 
         fetchSingleTodo()
-    }, [])
+    }, [todoURL])
 
     const handleSave = async (e) => {
         e.preventDefault()
@@ -44,12 +42,12 @@ const SingleTodo = () => {
         else if (newTask === todo.task)
             navigate(-1)
         else {
-            const response = await axios.put(todoURL, {task: newTask})
+            const response = await axios.put(todoURL, { task: newTask })
 
             if (response.status === 200)
                 navigate(-1)
         }
-        
+
     }
 
     const handleCancel = (e) => {
@@ -57,7 +55,7 @@ const SingleTodo = () => {
 
         if (newTask !== todo.task && newTask !== "") {
             const choice = window.confirm("Discard changes?")
-            
+
             if (choice)
                 navigate(-1)
         } else
@@ -65,20 +63,18 @@ const SingleTodo = () => {
     }
 
     return (
-        <main>
-            <Container>
-                <h1>Editing task "{todo.task}"</h1>
-                <form>
-                    <TaskInput 
-                        type="text"
-                        value={newTask}
-                        autoFocus
-                        onChange={e => { setNewTask(e.target.value) }} />
-                    <input type="submit" onClick={(e) => handleSave(e)} value="Save"  />
-                    <button onClick={(e) => handleCancel(e)}> Cancel </button>
-                </form>
-            </Container>
-        </main>
+        <>
+            <h1>Editing task "{todo.task}"</h1>
+            <form>
+                <TaskInput
+                    type="text"
+                    value={newTask}
+                    autoFocus
+                    onChange={e => { setNewTask(e.target.value) }} />
+                <input type="submit" onClick={(e) => handleSave(e)} value="Save" />
+                <button onClick={(e) => handleCancel(e)}> Cancel </button>
+            </form>
+        </>
     )
 }
 

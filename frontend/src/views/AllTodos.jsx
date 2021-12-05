@@ -1,9 +1,7 @@
 import { useEffect, useState } from "react"
 import axios from "axios"
 
-import TodosList from "../components/todos/TodosList"
-import TodoForm from "../components/todos/TodoForm"
-import Container from "../components/layout"
+import { TodosList } from "../components/todos"
 
 const AllTodos = () => {
 
@@ -28,20 +26,16 @@ const AllTodos = () => {
         if (response.status === 200) {
             const position = todos.findIndex(todo => todo.id === id)
             const aux = [...todos]
-            
+
             aux.splice(position, 1)
             setTodos(aux)
         }
     }
 
-    return(
+    return (
         <>
-            <main>
-            <Container>
-                <h1>To-Do List</h1>
-                <TodosList todos={todos} handleDelete={handleDelete}/>
-            </Container>
-            </main>
+            <h1>To-Do List</h1>
+            <TodosList todos={todos} handleDelete={handleDelete} />
         </>
     )
 }
