@@ -1,4 +1,4 @@
-import { IsBoolean, IsString } from "class-validator";
+import { IsBoolean, IsInt, IsNumber, IsString } from "class-validator";
 
 export class CreateTodoDto {
     @IsString()
@@ -6,4 +6,7 @@ export class CreateTodoDto {
 
     @IsBoolean()
     done: boolean = false;
+
+    @IsNumber()
+    folder: number;
 }
