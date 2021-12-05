@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import axios from "axios"
 
 import { FoldersList, FolderForm } from "../components/folders"
+import { RedirectButton } from "../components/layout"
 
 const AllFolders = () => {
 
@@ -33,11 +34,12 @@ const AllFolders = () => {
     }
 
     return (
-        <>
+        <div style={{marginTop: "15px"}}>
+            <RedirectButton to="/">Go back Home</RedirectButton>
             <h1>Folders</h1>
             <FoldersList folders={folders} handleDelete={handleDelete} />
             <FolderForm folders={folders} setFolders={setFolders} />
-        </>
+        </div>
     )
 }
 

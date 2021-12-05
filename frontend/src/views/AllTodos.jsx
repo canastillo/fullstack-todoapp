@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import axios from "axios"
 
 import { TodosList } from "../components/todos"
+import { RedirectButton } from "../components/layout"
 
 const AllTodos = () => {
 
@@ -33,10 +34,11 @@ const AllTodos = () => {
     }
 
     return (
-        <>
+        <div style={{marginTop: "15px"}}>
+            <RedirectButton to="/">Go back Home</RedirectButton>
             <h1>To-Do List</h1>
             <TodosList todos={todos} handleDelete={handleDelete} />
-        </>
+        </div>
     )
 }
 
