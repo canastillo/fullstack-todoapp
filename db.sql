@@ -10,8 +10,22 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 -- -----------------------------------------------------
 -- Schema todo_app
 -- -----------------------------------------------------
+
+-- -----------------------------------------------------
+-- Schema todo_app
+-- -----------------------------------------------------
 CREATE SCHEMA IF NOT EXISTS `todo_app` DEFAULT CHARACTER SET utf8 ;
 USE `todo_app` ;
+
+-- -----------------------------------------------------
+-- Table `todo_app`.`folders`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `todo_app`.`folders` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(20) NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
 
 -- -----------------------------------------------------
 -- Table `todo_app`.`todos`
@@ -20,8 +34,40 @@ CREATE TABLE IF NOT EXISTS `todo_app`.`todos` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `task` VARCHAR(50) NOT NULL,
   `done` TINYINT NOT NULL,
-  PRIMARY KEY (`id`))
+  `folderId` INT NOT NULL,
+  PRIMARY KEY (`id`, `folderId`),
+  INDEX `fk_todos_folders_idx` (`folderId` ASC) VISIBLE,
+  CONSTRAINT `fk_todos_folders`
+    FOREIGN KEY (`folderId`)
+    REFERENCES `todo_app`.`folders` (`id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
+
+INSERT INTO folders (name) VALUES ('Coding projects');
+INSERT INTO folders (name) VALUES ('Grocery list');
+INSERT INTO folders (name) VALUES ('Homework');
+INSERT INTO folders (name) VALUES ('Movies to watch');
+INSERT INTO folders (name) VALUES ('Christmas gifts');
+
+INSERT INTO todos (task, done, folderId) VALUES('Take Ensolvers test', TRUE, 1);
+INSERT INTO todos (task, done, folderId) VALUES('Code fullstack SPA', TRUE, 1);
+INSERT INTO todos (task, done, folderId) VALUES('Get hired', FALSE, 1);
+
+INSERT INTO todos (task, done, folderId) VALUES('Carrots 1kg', TRUE, 2);
+INSERT INTO todos (task, done, folderId) VALUES('Milk 2L', TRUE, 2);
+INSERT INTO todos (task, done, folderId) VALUES('Mayonnaise', FALSE, 2);
+
+INSERT INTO todos (task, done, folderId) VALUES('Study relational database concepts', FALSE, 3);
+INSERT INTO todos (task, done, folderId) VALUES('Finish UML diagrams', TRUE, 3);
+INSERT INTO todos (task, done, folderId) VALUES('Software development research', FALSE, 3);
+
+INSERT INTO todos (task, done, folderId) VALUES('Dune', TRUE, 4);
+INSERT INTO todos (task, done, folderId) VALUES('Encanto', TRUE, 4);
+INSERT INTO todos (task, done, folderId) VALUES('The French Dispatch', TRUE, 4);
+INSERT INTO todos (task, done, folderId) VALUES('Time Crimes', TRUE, 4);
+
+INSERT INTO todos (task, done, folderId) VALUES('Think of smt ', TRUE, 5);
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;

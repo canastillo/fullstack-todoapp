@@ -35,7 +35,7 @@ const AllTodos = () => {
 
     return (
         <div style={{marginTop: "15px"}}>
-            <RedirectButton to="/">Go back Home</RedirectButton>
+            <RedirectButton to="/">Go back</RedirectButton>
             <h1>To-Do List</h1>
             <TodosList todos={todos} handleDelete={handleDelete} />
         </div>

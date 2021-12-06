@@ -35,7 +35,7 @@ const AllFolders = () => {
 
     return (
         <div style={{marginTop: "15px"}}>
-            <RedirectButton to="/">Go back Home</RedirectButton>
+            <RedirectButton to="/">Go back</RedirectButton>
             <h1>Folders</h1>
             <FoldersList folders={folders} handleDelete={handleDelete} />
             <FolderForm folders={folders} setFolders={setFolders} />
