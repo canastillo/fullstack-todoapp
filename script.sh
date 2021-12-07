@@ -30,8 +30,6 @@ echo Creating .env files...
 echo Please insert database password:
 read -s password
 
-export DB_PASSWORD=$password
-
 if ! [[ -f ./backend/.env  ]]
 then
     echo TYPEORM_CONNECTION = mysql >> ./backend/.env
